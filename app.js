@@ -1,6 +1,10 @@
 const express = require('express')
 const app = express();
 
+
+// this is used for the upload routes
+const uploadRoute = require('./routes/upload.js')
+
 //this is import method of the module
 const userRouter = require('./routes/user.routes.js')
 
@@ -21,14 +25,16 @@ connectToDB();
 app.set('view engine', 'ejs')
 app.use(cookieParser())
 
-// these two lines below used for getting data by post method
+// these two lines below used for getting readable data by post method
 app.use(express.json());
 app.use(express.urlencoded({extended: true}))
 
 
 // way of using the our exported routes from the file
 app.use('/user', userRouter)
-app.use('/',indexRouter) 
+app.use('/', indexRouter) 
+app.use('/api', uploadRoute) // this route for APi 
+
 {/* after that if we want to hit any coustume routes thats we creates in our file routes will become
     [/user/test]
     */}
